@@ -10,17 +10,21 @@ public class Row : MonoBehaviour
     /// </summary>
     [Tooltip("序号")] public int Index = -1;
     public string IP = "0.0.0.0";
-    [Tooltip("结果")] public int Result = -1;
-    [Tooltip("结果")] public int ResultPS = -1;
+    [Tooltip("即时延迟")] public int Result = -1;
+    [Tooltip("平均延迟")] public int ResultPS = -1;
+    [Tooltip("丢包率")] public int Loss = -1;
     public Text IndexText;
     public InputField IPText;
     public Text ResultText;
     public Text ResultPSText;
+    public Text LossText;
     public static float RowSize = 50;
     public Ping ping;
     List<float> data = new List<float>();
+    [SerializeField] Vector2Int Count = new Vector2Int();
     private void Start()
     {
+        UpdateText();
         StartCoroutine(FreshPing());
         StartCoroutine(FreshPingPerSecond());
     }
@@ -33,6 +37,8 @@ public class Row : MonoBehaviour
     /// </summary>
     public void ChangeValue()
     {
+        if (IP != IPText.text)
+            Count = new Vector2Int();
         IP = IPText.text;
         ChooseThis();
         ValueLimit();
@@ -72,10 +78,12 @@ public class Row : MonoBehaviour
                 time += Time.deltaTime;
                 if (ping != null && ping.isDone && time > 0.1f)
                 {
+                    Count.x++;
                     break;
                 }
                 yield return 0;
             }
+            Count.y++;
             UpdatePing();
             yield return 0;
         }
@@ -86,12 +94,13 @@ public class Row : MonoBehaviour
         while (true)
         {
             sum = 0;
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(ResultPS > 0 && ResultPS < 1000 ? 2 : 1);
             for (int i = 0; i < data.Count; i++)
             {
                 sum += data[i] < 0 ? 999 : data[i];
             }
             ResultPS = (sum * 1f / data.Count).ToInteger();
+            Loss = 100 - (Count.x * 100f / Count.y).ToInteger();
             data.Clear();
         }
     }
@@ -125,9 +134,9 @@ public class Row : MonoBehaviour
         UpdateRowIndex();
         //UpdateText();
 
-        ResultText.text = Result < 0 ? "-" : Result.ToString();
-        ResultPSText.text = ResultPS < 0 ? "-" : ResultPS.ToString();
-
+        ResultText.text = Result > 0 ? Result.ToString() : "-";
+        ResultPSText.text = ResultPS > 0 ? ResultPS.ToString() : "-";
+        LossText.text = Loss >= 0 ? (Loss + "%") : "-";
         this.GetComponent<Image>().color = Index == MultiPing.instance.ChooseIndex ? Color.cyan : Color.white;
     }
     public void ChooseThis()
