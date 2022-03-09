@@ -27,11 +27,11 @@ public class MultiPing : MonoBehaviour
         {
             if (string.IsNullOrWhiteSpace(data[i]))
                 continue;
-            string temp = Row.ValueLimit(data[i]);
-            if (IPAddress.TryParse(temp, out IPAddress address))
+            //string temp = Row.ValueLimit(data[i]);
+            //if (IPAddress.TryParse(temp, out IPAddress address))
             {
                 AddRow();
-                Rows[Rows.Count - 1].InitializeValue(temp);
+                Rows[Rows.Count - 1].InitializeValue(data[i]);
             }
         }
     }

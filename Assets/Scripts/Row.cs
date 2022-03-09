@@ -17,6 +17,7 @@ public class Row : MonoBehaviour
     [Tooltip("丢包率")] public int Loss = -1;
     public Text IndexText;
     public InputField IPText;
+    public Text ShowIPText;
     public Text ResultText;
     public Text ResultPSText;
     public Text LossText;
@@ -32,7 +33,7 @@ public class Row : MonoBehaviour
     }
     private void OnEnable()
     {
-
+        EndEdit();
     }
     /// <summary>
     /// 输入框改变数值后
@@ -53,13 +54,13 @@ public class Row : MonoBehaviour
     }
     public void InitializeValue(string ip)
     {
-        IP = ip;
+        IPText.text = IP = ip;
         UpdateText();
         ChangeValue();
     }
     public void InitializeValue(IPAddress address)
     {
-        IP = address.ToString();
+        IPText.text = IP = address.ToString();
         UpdateText();
         ChangeValue();
     }
@@ -80,12 +81,22 @@ public class Row : MonoBehaviour
         IP = IPInformation.LimitIPv4(IP);
         return IP;
     }
+    public void EditState()
+    {
+        ShowIPText.gameObject.SetActive(false);
+        IPText.textComponent.gameObject.SetActive(true);
+    }
+    public void EndEdit()
+    {
+        ShowIPText.gameObject.SetActive(true);
+        IPText.textComponent.gameObject.SetActive(false);
+    }
     /// <summary>
     /// 更新显示文本
     /// </summary>
     public void UpdateText()
     {
-        IPText.text = IP;
+        ShowIPText.text = IP;
         ResultText.text = Result.ToString();
     }
     IEnumerator FreshPing()
