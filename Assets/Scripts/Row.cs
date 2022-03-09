@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 using RyuGiKen;
@@ -55,12 +57,29 @@ public class Row : MonoBehaviour
         UpdateText();
         ChangeValue();
     }
+    public void InitializeValue(IPAddress address)
+    {
+        IP = address.ToString();
+        UpdateText();
+        ChangeValue();
+    }
     /// <summary>
     /// 限制数值范围
     /// </summary>
     public void ValueLimit()
     {
-        IP = IPInformation.LimitIPv4(IP);
+        if (int.TryParse(IP.Replace("http://", "").Replace("https://", "").Replace(".", ""), out int num))
+        {
+            IP = IPInformation.LimitIPv4(IP);
+        }
+        else
+        {
+            try
+            {
+                IP = IPInformation.GetIP(IP).ToString();
+            }
+            catch { }
+        }
     }
     /// <summary>
     /// 更新显示文本

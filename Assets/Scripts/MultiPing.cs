@@ -21,16 +21,28 @@ public class MultiPing : MonoBehaviour
     {
         ListParent.GetChildren().SetActive(false);
 
-        string[] data = GetFile.LoadXmlData(new string[] { "IP" }, Application.streamingAssetsPath + "/Setting.xml", "Data", true);
+        GetFile.LoadXmlData(new string[] { "IP" }, Application.streamingAssetsPath + "/Setting.xml", "Data", out string[] data, true);
 
         for (int i = 0; i < data.Length; i++)
         {
-            string temp = null;
-            if (IPAddress.TryParse(data[i], out IPAddress iPAddress))
+            IPAddress temp = null;
+            if (IPAddress.TryParse(data[i], out temp))
             {
-                temp = iPAddress.ToString();
                 AddRow();
                 Rows[Rows.Count - 1].InitializeValue(temp);
+            }
+            else
+            {
+                temp = IPInformation.GetIP(data[i]);
+                if (temp != null)
+                {
+                    try
+                    {
+                        AddRow();
+                        Rows[Rows.Count - 1].InitializeValue(temp);
+                    }
+                    catch { }
+                }
             }
         }
     }
