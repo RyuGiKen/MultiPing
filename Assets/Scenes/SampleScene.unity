@@ -442,7 +442,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 100, y: 60}
+  m_SizeDelta: {x: 100, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &283823175
 MonoBehaviour:
@@ -572,7 +572,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 120, y: -10}
-  m_SizeDelta: {x: 100, y: 60}
+  m_SizeDelta: {x: 100, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &378462282
 MonoBehaviour:
@@ -743,7 +743,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 5, y: -45}
-  m_SizeDelta: {x: -10, y: -130}
+  m_SizeDelta: {x: -10, y: -105}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &581229576
 MonoBehaviour:
@@ -1555,7 +1555,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1558278156
 MonoBehaviour:
@@ -1724,7 +1724,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_SizeDelta: {x: -20, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1735292148
 MonoBehaviour:
@@ -1959,6 +1959,7 @@ MonoBehaviour:
   ListParent: {fileID: 1070463544}
   row: {fileID: 7949023570341337537, guid: 9ef8538f990cc3243a60972aa3be75c5, type: 3}
   ChooseIndex: -1
+  DeleteButton: {fileID: 378462282}
 --- !u!1 &2061325060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,7 +1998,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -30, y: -10}
-  m_SizeDelta: {x: 100, y: 60}
+  m_SizeDelta: {x: 100, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2061325062
 MonoBehaviour:
@@ -2247,7 +2248,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_SizeDelta: {x: -20, y: -12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2089800041
 MonoBehaviour:
@@ -2434,7 +2435,7 @@ PrefabInstance:
     - target: {fileID: 7949023570341337538, guid: 9ef8538f990cc3243a60972aa3be75c5,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 7949023570341337538, guid: 9ef8538f990cc3243a60972aa3be75c5,
         type: 3}

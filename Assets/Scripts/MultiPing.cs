@@ -12,6 +12,7 @@ public class MultiPing : MonoBehaviour
     public Transform ListParent;
     public Row row;
     public int ChooseIndex = -1;
+    public Button DeleteButton;
     private void Awake()
     {
         instance = this;
@@ -47,6 +48,8 @@ public class MultiPing : MonoBehaviour
                 Rows.RemoveAt(i);
         }
         ListParent.GetComponent<RectTransform>().sizeDelta = new Vector2(ListParent.GetComponent<RectTransform>().sizeDelta.x, Rows.Count.Clamp(1) * Row.RowSize);
+
+        DeleteButton.GetComponentInChildren<Text>().text = ChooseIndex > 0 ? "删除" : "清空";
     }
     /// <summary>
     /// 增加行

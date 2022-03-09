@@ -18,7 +18,7 @@ public class Row : MonoBehaviour
     public Text ResultText;
     public Text ResultPSText;
     public Text LossText;
-    public static float RowSize = 50;
+    public static float RowSize = 45;
     public Ping ping;
     List<float> data = new List<float>();
     [SerializeField] Vector2Int Count = new Vector2Int();
@@ -38,7 +38,10 @@ public class Row : MonoBehaviour
     public void ChangeValue()
     {
         if (IP != IPText.text)
+        {
             Count = new Vector2Int();
+            data.Clear();
+        }
         IP = IPText.text;
         ChooseThis();
         ValueLimit();
@@ -94,14 +97,14 @@ public class Row : MonoBehaviour
         while (true)
         {
             sum = 0;
-            yield return new WaitForSeconds(ResultPS > 0 && ResultPS < 1000 ? 2 : 1);
+            yield return new WaitForSeconds(1);
             for (int i = 0; i < data.Count; i++)
             {
                 sum += data[i] < 0 ? 999 : data[i];
             }
             ResultPS = (sum * 1f / data.Count).ToInteger();
-            Loss = 100 - (Count.x * 100f / Count.y).ToInteger();
-            data.Clear();
+            Loss = 1000 - (Count.x * 1000f / Count.y).ToInteger();
+            //data.Clear();
         }
     }
     void UpdatePing()
@@ -136,7 +139,19 @@ public class Row : MonoBehaviour
 
         ResultText.text = Result > 0 ? Result.ToString() : "-";
         ResultPSText.text = ResultPS > 0 ? ResultPS.ToString() : "-";
-        LossText.text = Loss >= 0 ? (Loss + "%") : "-";
+        /*if (Loss >= 0)
+        {
+            string temp = Loss.ToString("F1");
+            if (temp[temp.Length - 1] == '0')
+                LossText.text = Loss.ToString("F0") + "%";
+            else
+                LossText.text = Loss.ToString("F1") + "%";
+        }
+        else
+        {
+            LossText.text = "-";
+        }*/
+        LossText.text = Loss >= 0 ? ((Loss * 0.1f).ToString() + "%") : "-";
         this.GetComponent<Image>().color = Index == MultiPing.instance.ChooseIndex ? Color.cyan : Color.white;
     }
     public void ChooseThis()
