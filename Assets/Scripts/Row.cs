@@ -46,7 +46,7 @@ public class Row : MonoBehaviour
         }
         IP = IPText.text;
         ChooseThis();
-        ValueLimit();
+        IP = ValueLimit(IP);
         UpdateText();
 
         UpdatePing();
@@ -66,13 +66,10 @@ public class Row : MonoBehaviour
     /// <summary>
     /// 限制数值范围
     /// </summary>
-    public void ValueLimit()
+    public static string ValueLimit(string IP)
     {
-        if (int.TryParse(IP.Replace("http://", "").Replace("https://", "").Replace(".", ""), out int num))
-        {
-            IP = IPInformation.LimitIPv4(IP);
-        }
-        else
+        string result = IP;
+        if (!int.TryParse(IP.Replace("http://", "").Replace("https://", "").Replace(".", ""), out int num))
         {
             try
             {
@@ -80,6 +77,8 @@ public class Row : MonoBehaviour
             }
             catch { }
         }
+        IP = IPInformation.LimitIPv4(IP);
+        return IP;
     }
     /// <summary>
     /// 更新显示文本
@@ -128,7 +127,7 @@ public class Row : MonoBehaviour
     }
     void UpdatePing()
     {
-        if (IP == "0.0.0.0" || IP == "127.0.0.1" || IP == "255.255.255.255")
+        if (string.IsNullOrWhiteSpace(IP) || IP == "0.0.0.0" || IP == "127.0.0.1" || IP == "255.255.255.255")
             return;
         if (ping != null)
         {

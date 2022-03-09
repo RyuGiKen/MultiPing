@@ -25,24 +25,13 @@ public class MultiPing : MonoBehaviour
 
         for (int i = 0; i < data.Length; i++)
         {
-            IPAddress temp = null;
-            if (IPAddress.TryParse(data[i], out temp))
+            if (string.IsNullOrWhiteSpace(data[i]))
+                continue;
+            string temp = Row.ValueLimit(data[i]);
+            if (IPAddress.TryParse(temp, out IPAddress address))
             {
                 AddRow();
                 Rows[Rows.Count - 1].InitializeValue(temp);
-            }
-            else
-            {
-                temp = IPInformation.GetIP(data[i]);
-                if (temp != null)
-                {
-                    try
-                    {
-                        AddRow();
-                        Rows[Rows.Count - 1].InitializeValue(temp);
-                    }
-                    catch { }
-                }
             }
         }
     }
